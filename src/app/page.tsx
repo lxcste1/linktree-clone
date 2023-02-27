@@ -1,19 +1,17 @@
 import api from './api/api';
+import Link from 'next/link';
 
 export default async function Home() {
-
-  const links = await api.links.fetch();
-
-  console.log(links)
+  const users = await api.user.list();
 
   return (
     <>
       <main>
         <h1>lxcste</h1>
         <ul>
-          {links.map((link) => (
-            <li key={link.url}>
-              <a href={link.url}>{link.label}</a>
+          {users.map((user) => (
+            <li key={user.url}>
+              <Link href={`/${user.url}`}>{user.slug}</Link>
             </li>
           ))}
         </ul>
