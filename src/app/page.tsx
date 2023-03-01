@@ -11,7 +11,7 @@ export default async function Home() {
         <ul>
           {users.map((user) => (
             <li key={user.url}>
-              <Link href={`/${user.url}`}>{user.slug}</Link>
+              <Link href={`/${user.slug}`}>{user.slug}</Link>
             </li>
           ))}
         </ul>

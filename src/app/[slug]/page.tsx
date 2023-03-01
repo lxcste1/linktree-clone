@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import api from '../api/api';
 
 type Props = {
@@ -7,12 +8,20 @@ type Props = {
 }
 
 export default async function Slug({params: {slug}}: Props) {
-  const links = await api.links.fetch();
+  const users = await api.user.list();
+
+  const user = users.find((user) => user.slug === slug);
+
+  if (!user) {
+    return notFound();
+  }
+
+  const links = await api.links.fetch(user.url);
 
   return (
     <>
       <main>
-        <h1>lxcste</h1>
+        <h1>{user.slug}</h1>
         <ul>
           {links.map((link) => (
             <li key={link.url}>
